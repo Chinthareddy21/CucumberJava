@@ -7,6 +7,7 @@ Feature: This is a login test
     Given Navigated to login page
     When Enter <username> and <password>
     Then Click on login button
+    Then Navigated to home page
 
     Examples:
       | username | password |

@@ -7,7 +7,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import pageFactory.PageRepository.loginPage;
+
+import java.util.concurrent.TimeUnit;
 
 public class LoginSteps {
 
@@ -17,12 +20,12 @@ public class LoginSteps {
 	@Before
 	public void setUp() {
 		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 
 	@Given("Navigated to login page")
 	public void navigatedToLoginPage() throws InterruptedException {
 		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-		Thread.sleep(1000);
 	}
 
 	@When("Enter (.*) and (.*)")
@@ -34,7 +37,6 @@ public class LoginSteps {
 	@Then("Click on login button")
 	public void clickOnLoginButton() throws InterruptedException {
 		login.loginClick(driver);
-		Thread.sleep(5000);
 	}
 
 	@When("^Enter (.*) and (.*)$")
@@ -48,10 +50,14 @@ public class LoginSteps {
 		login.errorMessage(driver, errorMessage);
 	}
 
+	@Then("Navigated to home page")
+	public void navigatedToHomepage() {
+		String homepageurl = driver.getCurrentUrl();
+		Assert.assertEquals(homepageurl, "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index");
+	}
 
 	@After
 	public void tearDown() {
 		driver.close();
 	}
-
 }
