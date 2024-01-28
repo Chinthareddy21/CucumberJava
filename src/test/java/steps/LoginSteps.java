@@ -5,13 +5,14 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pageFactory.PageRepository.loginPage;
 
 public class LoginSteps {
 
 	public static WebDriver driver;
+	loginPage login = new loginPage();
 
 	@Before
 	public void setUp() {
@@ -19,19 +20,21 @@ public class LoginSteps {
 	}
 
 	@Given("Navigated to login page")
-	public void navigatedToLoginPage() {
-		driver.get("https://www.saucedemo.com/v1/index.html");
+	public void navigatedToLoginPage() throws InterruptedException {
+		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+		Thread.sleep(1000);
 	}
 
 	@When("^Enter (.*) and (.*)$")
 	public void enterUsernameAndPassword(String username, String password) {
-		driver.findElement(By.xpath("//input[@id=\"user-name\"]")).sendKeys(username);
-		driver.findElement(By.xpath("//input[@id=\"password\"]")).sendKeys(password);
+		login.usernameEntry(driver, username);
+		login.passwordEntry(driver, password);
 	}
 
 	@Then("Click on login button")
-	public void clickOnLoginButton() {
-		driver.findElement(By.id("login-button")).click();
+	public void clickOnLoginButton() throws InterruptedException {
+		login.loginClick(driver);
+		Thread.sleep(5000);
 	}
 
 	@After

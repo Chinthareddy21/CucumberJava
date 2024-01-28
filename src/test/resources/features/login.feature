@@ -7,8 +7,5 @@ Feature: This is a login test
     Then Click on login button
 
     Examples:
-      | username                | password     |
-      | standard_user           | secret_sauce |
-      | locked_out_user         | secret_sauce |
-      | problem_user            | secret_sauce |
-      | performance_glitch_user | secret_sauce |
+      | username | password |
+      | Admin    | admin123 |
