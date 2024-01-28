@@ -25,7 +25,7 @@ public class LoginSteps {
 		Thread.sleep(1000);
 	}
 
-	@When("^Enter (.*) and (.*)$")
+	@When("Enter (.*) and (.*)")
 	public void enterUsernameAndPassword(String username, String password) {
 		login.usernameEntry(driver, username);
 		login.passwordEntry(driver, password);
@@ -37,9 +37,21 @@ public class LoginSteps {
 		Thread.sleep(5000);
 	}
 
+	@When("^Enter (.*) and (.*)$")
+	public void enterInvalidUsernameAndInvalidPassword(String invalidUsername, String invalidPassword) {
+		login.usernameEntry(driver, invalidUsername);
+		login.passwordEntry(driver, invalidPassword);
+	}
+
+	@Then("^(.*) should be displayed$")
+	public void errorMessageshouldBeDisplayed(String errorMessage) {
+		login.errorMessage(driver, errorMessage);
+	}
+
+
 	@After
 	public void tearDown() {
 		driver.close();
-		driver.quit();
 	}
+
 }

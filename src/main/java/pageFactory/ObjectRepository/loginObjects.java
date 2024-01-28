@@ -21,4 +21,9 @@ public class loginObjects {
 		element = driver.findElement(By.xpath("//button[@type=\"submit\"]"));
 		return element;
 	}
+
+	public static WebElement errorMessage(WebDriver driver) {
+		element = driver.findElement(By.xpath("//*[@class='orangehrm-login-error']/div[1]/div[1]/p"));
+		return element;
+	}
 }
